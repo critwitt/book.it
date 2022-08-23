@@ -6,14 +6,80 @@
         <link rel="stylesheet" href="styles/style.css" />
     </head>
     <body>
-        <div class="heading">
+        <nav class="heading">
             <h1 id="title">Book.it</h1>
-            <div>
-                <select id="selectBook">
-                <input type="search" id="searchBar">
-                <input type="submit" id="submitButton">
+            <div id="search-content" >
+                <select name="searchType" id="search-type">
+                    <option value="title">Title</option>
+                    <option value="author">Author</option>
+                    <option value="subject">Subject</option>
+                    <option value="place">Place</option>
+                    <option value="person">Person</option>
+                    <option value="language">Language</option>
+                    <option value="publisher">Publisher</option>
+                </select>
+                <input type="search" id="search-bar">
+                <button id="search-button">Search</button>
             </div>
+        </nav>
+
+        <div id="additional-search-options">
         </div>
+
+        <div id="feed">
+            <div id="side-panel">
+                <h1 class="mb-10">My Books</h1>
+                
+                <h3 class="mb-5">Just Read</h3>
+                <ul class="mb-10">
+                    <li>Harry Potter</li>
+                    <li>Harry Potter</li>
+                    <li>Harry Potter</li>
+                </ul>
+                
+                <h3>Wishlist</h3>
+                <ul class="mb-10">
+                    <li>Insert Book Here!</li>
+                    <li>Insert Book Here!</li>
+                    <li>Insert Book Here!</li>
+                </ul>
+
+
+            </div>
+
+            <div id="book-feed">
+                <div class="book-card">
+                    <div class="book-image">
+                        <img src="https://covers.openlibrary.org/b/id/12622431-L.jpg" alt="">
+                    </div>
+
+                    <div class="book-info">
+                        <h1>Harry Potter and the Sorcerer's Stone</h1>
+                        <p>by J.K. Rowling</p>
+                    </div>
+
+                    <div class="book-actions">
+                        <button class="mx-10 btn-long btn-outline">Have Read!</button>
+                        <button class="mx-10 btn-long btn-outline btn-brown">Want to Read!</button>
+                    </div>
+                    
+                </div>
+
+            </div>            
+
+
+        </div>
+
+        <!-- <div id="book-feed">
+            <div id="insertbook-id-here" class="book-container">
+            </div>
+
+        
+        
+        
+        
+        </div>
+
         <div id="bookContainer" class="">
             <img src="https://www.mswordcoverpages.com/wp-content/uploads/2018/10/Book-cover-page-3-CRC.png">
             <div class="bookInfo">
@@ -23,7 +89,19 @@
         </div>
         <div id="myBooks">
         </div>
-        <footer>Eric, Casey, and Chris</footer>
+
+        <div id="bookContainer" class="">
+            <img src="https://www.mswordcoverpages.com/wp-content/uploads/2018/10/Book-cover-page-3-CRC.png">
+            <div class="bookInfo">
+                <div>Book Title</div>
+                <div>By Author</div>
+            </div>
+        </div>
+        <div id="myBooks">
+        </div>
+        
+        <footer>Eric, Casey, and Chris</footer> -->
+        
         <script defer type="text/javascript" src="src/index.js"></script>
     </body>
 </html>
