@@ -141,11 +141,15 @@ select {
     background-color: var(--card-grey);
     border-radius: var(--radius-l);
     display: flex;
+    margin-bottom: 10px;
 }
 
 .book-card img {
     max-height: 140px;
     border-radius: var(--radius);
+}
+.book-image {
+    background-color: var(--card-grey);
 }
 
 .book-info {
