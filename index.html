@@ -8,22 +8,25 @@
     <body>
         <div class="heading">
             <h1 id="title">Book.it</h1>
-            <div>
+            <form id="form">
                 <select id="selectBook">
+                    <option value="title">Title</option>
+                    <option value="author">Author</option>
                 <input type="search" id="searchBar">
                 <input type="submit" id="submitButton">
-            </div>
+            </form>
         </div>
-        <div id="bookContainer" class="">
-            <img src="https://www.mswordcoverpages.com/wp-content/uploads/2018/10/Book-cover-page-3-CRC.png">
-            <div class="bookInfo">
-                <div>Book Title</div>
-                <div>By Author</div>
-            </div>
+        <div id="bookContainer">
+
         </div>
-        <div id="myBooks">
+        <div id="myBooks">My Books
+            <div id="haveRead">Have Read</div>
+            <div id="wishlist">Wishlist</div>
         </div>
-        <footer>Eric, Casey, and Chris</footer>
+        <footer>Eric, Casey, and Chris
+            <input type="button" id="nextPage" value="<">
+            <input type="button" id="lastPage" value=">">
+        </footer>
         <script defer type="text/javascript" src="src/index.js"></script>
     </body>
 </html>
