@@ -99,6 +99,10 @@ function checkList (title) {
 }
 
 
+const string = "Beilstein Handbook of Organic Chemistry"
+console.log(string.length);
+
+
 // Things to do
 // Remove thumbnail from wishlists
 // See about styling for some books
