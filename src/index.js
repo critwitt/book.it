@@ -37,12 +37,14 @@ function handleSubmission () {
 
     function renderCard (data) {
         const card = document.createElement("div");
+        
         const imgDiv = document.createElement("div");
-        const thumbnail = document.createElement("img");
         const bookInfo = document.createElement("div");
+        const buttons = document.createElement("div");
+        
+        const thumbnail = document.createElement("img");
         const title = document.createElement("h1");
         const author = document.createElement("p");
-        const buttons = document.createElement("div");
 
         const read = document.createElement("button");
         const wishlist = document.createElement("button");
@@ -56,25 +58,23 @@ function handleSubmission () {
 
         read.textContent = "Have Read!";
         wishlist.textContent = "Want to Read!";
-
-        buttons.append(read, wishlist);
-
-        thumbnail.src = `https://covers.openlibrary.org/b/id/${data.covers[0]}-L.jpg`;
         title.textContent = data.title;
-        title.id = "bookTitle";
+        if(data.covers) thumbnail.src = `https://covers.openlibrary.org/b/id/${data.covers[0]}-L.jpg`
+        else thumbnail.src = 'https://ualr.edu/elearning/files/2020/10/No-Photo-Available.jpg'
+
         fetch(`https://openlibrary.org${data.authors[0].author.key}.json`)
         .then(res => res.json())
         .then(data => {author.textContent = `by ${data.name}`})
-        author.id = "bookAuthor";
-
+        
         imgDiv.append(thumbnail);
-
         bookInfo.append(title, author);
+        buttons.append(read, wishlist);
 
         read.addEventListener("click", () => addBook("#just-read", data.title));
         wishlist.addEventListener("click", () => addBook("#wish-list", data.title));
     
-        card.append(thumbnail, title, author, read, wishlist);
+        card.append(imgDiv, bookInfo, buttons);
+
         bookContainer.append(card);
     }
 }
