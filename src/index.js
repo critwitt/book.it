@@ -82,7 +82,20 @@ function handleSubmission () {
 function addBook (list, title) {
     const newListItem = document.createElement("li");
     newListItem.textContent = title;
-    document.querySelector(list).append(newListItem)
+    if(checkList(title)) {
+        console.log("Can't do that!")
+    } else {
+        document.querySelector(list).append(newListItem)
+    }
+}
+
+function checkList (title) {
+    const myBooks = document.getElementsByTagName("li");
+    for (let book in myBooks) {
+        if (myBooks[book].textContent === title) {
+            return true
+        }
+    }
 }
 
 
