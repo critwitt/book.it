@@ -71,19 +71,20 @@ function handleSubmission () {
 
         bookInfo.append(title, author);
 
-        function addBook (list) {
-            document.querySelector(list).append(thumbnail, title, author)
-            read.remove()
-            wishlist.remove()
-        }
-
-        read.addEventListener("click", () => addBook("#just-read"));
-        wishlist.addEventListener("click", () => addBook("#wish-list"));
+        read.addEventListener("click", () => addBook("#just-read", data.title));
+        wishlist.addEventListener("click", () => addBook("#wish-list", data.title));
     
         card.append(thumbnail, title, author, read, wishlist);
         bookContainer.append(card);
     }
 }
+
+function addBook (list, title) {
+    const newListItem = document.createElement("li");
+    newListItem.textContent = title;
+    document.querySelector(list).append(newListItem)
+}
+
 
 // Things to do
 // Remove thumbnail from wishlists
