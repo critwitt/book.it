@@ -19,20 +19,16 @@ function handleSubmission () {
         credentials: 'same-origin'
     })
     .then(res => res.json())
-    .then(data => {
+    .then(data => data.docs.forEach(book => {
 
         // Iterate through 'works' to return book data and render
 
-        for (let i=0; i < data.docs.length; i++) {
-            fetch(`http://openlibrary.org${data.docs[i].key}.json`, {
-                mode: 'cors',
-                credentials: 'same-origin'
-            })
-            .then(res => res.json())
-            .then(data => renderCard(data))
-            .catch(err => console.log(err))
-        }
+        fetch(`http://openlibrary.org${book.key}.json`)
+        .then(res => res.json())
+        .then(data => renderCard(data))
+        .catch(err => console.log(err))
     })
+    )
     .catch(err => console.log(err))
 
     
