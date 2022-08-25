@@ -13,8 +13,7 @@ function handleSubmission () {
     const searchParam = document.querySelector("#search-type").value;
 
     // Fetch Search Term in Open Library API
-
-    fetch(`http://openlibrary.org/search.json?q=${searchTerm}`, {
+    fetch(`http://openlibrary.org/search.json?${searchParam}=${searchTerm}`, {
         mode: 'cors',
         credentials: 'same-origin'
     })
@@ -33,6 +32,7 @@ function handleSubmission () {
 }
 
 function renderCard (data) {
+    console.log(data.description);
     const card = document.createElement("div");
     
     const imgDiv = document.createElement("div");
@@ -55,13 +55,12 @@ function renderCard (data) {
 
     read.textContent = "Have Read!";
     wishlist.textContent = "Want to Read!";
+    
     if(data.title.length < 39) title.textContent = data.title;
     else title.textContent = `${data.title.substr(0, 36)}...`
     
     if(data.covers) thumbnail.src = `https://covers.openlibrary.org/b/id/${data.covers[0]}-L.jpg`
     else thumbnail.src = 'https://ualr.edu/elearning/files/2020/10/No-Photo-Available.jpg'
-
-    console.log(thumbnail);
 
     fetch(`https://openlibrary.org${data.authors[0].author.key}.json`)
     .then(res => res.json())
@@ -97,10 +96,6 @@ function checkList (title) {
         }
     }
 }
-
-
-const string = "Beilstein Handbook of Organic Chemistry"
-console.log(string.length);
 
 
 // Things to do
