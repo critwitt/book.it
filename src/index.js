@@ -1,12 +1,34 @@
 const form = document.querySelector("#search-content");
-const bookContainer = document.querySelector("#book-feed")
+const bookContainer = document.querySelector("#book-feed");
+const bookLimit = document.querySelector("#search-limit");
+let page = 1;
+
+const prevPage = document.querySelector("#prev-page");
+const nextPage = document.querySelector("#next-page");
+
+prevPage.addEventListener("click", () => {
+    if (page > 1) {
+        page = page - 1;
+        handleSubmission();
+    } else {
+        page = 1;
+    }
+})
+
+nextPage.addEventListener("click", () => {
+    if (page < 50) {
+        page = page + 1;
+        handleSubmission();
+    } else {
+        page = 1;
+    }
+})
 
 document.getElementById("search-button").addEventListener("click", handleSubmission)
 
 // Handle Submit Button
 
 function handleSubmission () {
-    console.log("WOOO")
 
     bookContainer.innerHTML = "";
     const searchTerm = document.querySelector("#search-bar").value.split(" ").join("+");
@@ -19,20 +41,26 @@ function handleSubmission () {
         credentials: 'same-origin'
     })
     .then(res => res.json())
-    .then(data => data.docs.forEach(book => {
+    .then(data => { 
+        data.docs.slice(`${bookLimit.value*page - bookLimit.value}`,`${bookLimit.value*page - 1}`).forEach(book => {
+        // console.log(book.type)
+        renderCard(book)
+        })}
+    //     data.docs.forEach(book => {
 
-        // Iterate through 'works' to return book data and render
+    //     // Iterate through 'works' to return book data and render
 
-        fetch(`http://openlibrary.org${book.key}.json`)
-        .then(res => res.json())
-        .then(data => renderCard(data))
-        .catch(err => console.log(err))
-    })
+    //     fetch(`http://openlibrary.org${book.key}.json?limit=10`)
+    //     .then(res => res.json())
+    //     .then(data => renderCard(data))
+    //     .catch(err => console.log(err))
+    // })
     )
     .catch(err => console.log(err))
 }
 
 function renderCard (data) {
+    console.log(data)
     const card = document.createElement("div");
     
     const imgDiv = document.createElement("div");
@@ -55,17 +83,23 @@ function renderCard (data) {
 
     read.textContent = "Have Read!";
     wishlist.textContent = "Want to Read!";
+    if(data.title) {
+        title.textContent = data.title;
+    } else {
+        title.textContent = "No Title"
+    }
+
     if(data.title.length < 39) title.textContent = data.title;
     else title.textContent = `${data.title.substr(0, 36)}...`
     
-    if(data.covers) thumbnail.src = `https://covers.openlibrary.org/b/id/${data.covers[0]}-L.jpg`
+    if(data.cover_i) thumbnail.src = `https://covers.openlibrary.org/b/id/${data.cover_i}-L.jpg`
     else thumbnail.src = 'https://ualr.edu/elearning/files/2020/10/No-Photo-Available.jpg'
 
-    console.log(thumbnail);
-
-    fetch(`https://openlibrary.org${data.authors[0].author.key}.json`)
-    .then(res => res.json())
-    .then(data => {author.textContent = `by ${data.name}`})
+    if(data.author_name) {
+        author.textContent = data.author_name[0];
+    } else {
+        author.textContent = "No Author"
+    }
     
     imgDiv.append(thumbnail);
     bookInfo.append(title, author);
@@ -97,11 +131,6 @@ function checkList (title) {
         }
     }
 }
-
-
-const string = "Beilstein Handbook of Organic Chemistry"
-console.log(string.length);
-
 
 // Things to do
 // Remove thumbnail from wishlists
