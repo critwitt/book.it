@@ -1,7 +1,8 @@
+let dark = false
 const form = document.querySelector("#search-content");
 const bookContainer = document.querySelector("#book-feed")
-
 document.getElementById("search-button").addEventListener("click", handleSubmission)
+document.getElementById("slider").addEventListener('click', handleSwitch)
 
 // Handle Submit Button
 
@@ -94,6 +95,19 @@ function checkList (title) {
         if (myBooks[book].textContent === title) {
             return true
         }
+    }
+}
+
+function handleSwitch() {
+    dark = !dark
+    const body = document.getElementsByTagName('body')[0]
+    if(dark) {
+        body.classList.remove('light') 
+        body.classList.add('dark') 
+    }
+    else {
+        body.classList.remove('dark')
+        body.classList.add('light') 
     }
 }
 
