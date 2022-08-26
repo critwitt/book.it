@@ -33,7 +33,6 @@ function handleSubmission () {
 }
 
 function renderCard (data) {
-    console.log(data.description);
     const card = document.createElement("div");
     
     const imgDiv = document.createElement("div");
@@ -73,6 +72,7 @@ function renderCard (data) {
 
     read.addEventListener("click", () => addBook("#just-read", data.title));
     wishlist.addEventListener("click", () => addBook("#wish-list", data.title));
+    card.addEventListener('click', () => showBookDetails(data))
 
     card.append(imgDiv, bookInfo, buttons);
 
@@ -109,6 +109,10 @@ function handleSwitch() {
         body.classList.remove('dark')
         body.classList.add('light') 
     }
+}
+
+function showBookDetails(data) {
+    console.log('ert');
 }
 
 
