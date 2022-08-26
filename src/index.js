@@ -226,4 +226,3 @@ function handleSwitch() {
 
 
 // Things to do
-// Delete booksS
