@@ -30,7 +30,8 @@ nextPage.addEventListener("click", () => {
 
 document.getElementById("search-button").addEventListener("click", () => {
     page = 1;
-    handleSubmission()})
+    handleSubmission()
+})
 document.getElementById("slider").addEventListener('click', handleSwitch)
 
 // Handle Submit Button
@@ -52,6 +53,31 @@ function handleSubmission () {
     })
     .catch(err => console.log(err))
 }
+
+// Render Book Lists
+
+
+function appendBooks (url, list) {
+    fetch(`http://localhost:3000/${url}`)
+    .then(res => res.json())
+    .then(data => data.forEach(book => {
+        const newListItem = document.createElement("li");
+        const deleteBtn = document.createElement("button");
+        deleteBtn.textContent = "Remove Book"
+        deleteBtn.addEventListener("click", () => {
+            newListItem.remove()
+            deleteBtn.remove()
+            fetch(`http://localhost:3000/${url}/${book.id}`, {
+                method: 'DELETE'
+            })
+        })
+        newListItem.textContent = book.book;
+        document.querySelector(list).append(newListItem, deleteBtn)
+    }))
+}
+
+appendBooks("haveRead", "#just-read");
+appendBooks("wishlist", "#wish-list")
 
 // Control Card Rendering
 
@@ -127,12 +153,53 @@ function renderCard (data) {
 
 function addBook (list, title, author) {
     const newListItem = document.createElement("li");
+    const deleteBtn = document.createElement("button");
+    deleteBtn.textContent = "Remove Book"
     newListItem.textContent = `${title} by ${author}`;
+    let urlPath = "";
+    let url = "";
+    if (list === "#just-read") {
+        url = "haveRead"
+    } else {
+        url = "wishlist"
+    }
+    const data = {
+        book: `${title} by ${author}`
+    }
     if(checkList(title, author)) {
         console.log("Can't do that!")
     } else {
-        document.querySelector(list).append(newListItem)
+        let urlPath = 0;
+        fetch(`http://localhost:3000/${url}`, {
+            method: "POST",
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(data)
+        })
+        .then(res => res.json())
+        .then(newData => urlPath = newData.id)
+        deleteBtn.addEventListener("click", () => {
+            newListItem.remove()
+            deleteBtn.remove()
+            fetch(`http://localhost:3000/${url}/${urlPath}`, {
+                method: 'DELETE'
+            })
+        })
+        document.querySelector(list).append(newListItem, deleteBtn)
     }
+}
+
+function createResource (data, url) {
+    fetch(`http://localhost:3000/${url}`, {
+            method: "POST",
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(data)
+        })
+        .then(res => res.json())
+        .then(newData => console.log(newData))
 }
 
 function checkList (title, author) {
@@ -159,7 +226,4 @@ function handleSwitch() {
 
 
 // Things to do
-// Remove thumbnail from wishlists
-// See about styling for some books
-// Maybe add pages?
-// DARK MOOOODDDEEEE
+// Delete booksS
